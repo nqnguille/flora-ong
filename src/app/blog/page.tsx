@@ -4,41 +4,40 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Blog — Flora ONG",
   description:
-    "Educación e información sobre cannabis medicinal, Ley 27.350 y acceso terapéutico. Artículos basados en evidencia.",
+    "Terpenos, guía REPROCANN, uso responsable. Información directa sobre cannabis medicinal para quienes ya decidieron.",
   openGraph: {
     title: "Blog — Flora ONG",
-    description: "Educación sobre cannabis medicinal basada en evidencia.",
+    description: "Cannabis medicinal sin rodeos. Para quienes ya decidieron.",
     url: "https://flora.ar/blog",
   },
 };
 
-// Placeholder posts — replace with MDX/CMS data
 const posts = [
   {
-    slug: "ley-27350-que-significa",
-    title: "¿Qué es la Ley 27.350 y qué derechos te da?",
+    slug: "terpenos-que-son-y-por-que-importan",
+    title: "Terpenos: qué son y por qué determinan tu experiencia tanto como los cannabinoides",
     excerpt:
-      "La Ley de Investigación Médica y Científica del Uso Medicinal de la Planta de Cannabis existe desde 2017. Te explicamos qué garantiza y cómo acceder a sus beneficios.",
-    date: "2025-05-15",
-    category: "Legal",
+      "El aroma de una variedad no es marketing. Los terpenos modulan los efectos del THC y el CBD de formas concretas. Entender esto cambia cómo elegís tu genética.",
+    date: "2026-05-20",
+    category: "Ciencia",
+    readTime: "6 min",
+  },
+  {
+    slug: "reprocann-guia-completa-2026",
+    title: "Cómo tramitar el REPROCANN en 2026: guía paso a paso",
+    excerpt:
+      "El proceso es online, gratuito y más rápido de lo que pensás. Acá está todo lo que necesitás saber: quién puede solicitarlo, qué documentación necesitás y cuánto tarda.",
+    date: "2026-05-10",
+    category: "Trámites",
     readTime: "5 min",
   },
   {
-    slug: "reprocann-como-registrarse",
-    title: "REPROCANN: cómo registrarse paso a paso",
+    slug: "uso-responsable-cannabis-medicinal",
+    title: "Uso responsable del cannabis medicinal: lo que nadie te explica",
     excerpt:
-      "El Registro del Programa de Cannabis del Ministerio de Salud es el documento que te permite acceder legalmente al cannabis medicinal en Argentina.",
-    date: "2025-05-08",
-    category: "Trámites",
-    readTime: "4 min",
-  },
-  {
-    slug: "cannabinoides-thc-cbd-diferencias",
-    title: "THC, CBD y otros cannabinoides: qué son y para qué sirven",
-    excerpt:
-      "La planta contiene más de 100 cannabinoides identificados. Cada uno tiene efectos distintos. Entender la diferencia es el primer paso para un tratamiento efectivo.",
-    date: "2025-04-28",
-    category: "Educación",
+      "Titulación, consistencia y registro. Tres prácticas simples que hacen la diferencia entre un tratamiento efectivo y uno que funciona a medias. Sin sermones.",
+    date: "2026-04-28",
+    category: "Práctica",
     readTime: "7 min",
   },
 ];
@@ -53,11 +52,11 @@ export default function BlogPage() {
             Blog
           </span>
           <h1 className="font-garamond font-bold text-white text-5xl sm:text-6xl leading-tight mb-5">
-            Cultivamos conocimiento.
+            Para quienes ya decidieron.
           </h1>
           <p className="font-jakarta text-white/70 text-lg max-w-lg mx-auto">
-            Información basada en evidencia sobre cannabis medicinal, acceso
-            legal y salud. Sin mitos, sin estigma.
+            Sin evangelizar, sin explicar lo básico. Información concreta sobre
+            cannabis medicinal para adultos que ya saben lo que buscan.
           </p>
         </div>
       </section>
@@ -81,7 +80,7 @@ export default function BlogPage() {
                       {post.readTime} de lectura
                     </span>
                   </div>
-                  <h2 className="font-garamond font-semibold text-green-dark text-2xl mb-2 group-hover:text-green-dark leading-snug">
+                  <h2 className="font-garamond font-semibold text-green-dark text-2xl mb-2 leading-snug">
                     {post.title}
                   </h2>
                   <p className="font-jakarta text-[#6b7f74] text-sm leading-relaxed">

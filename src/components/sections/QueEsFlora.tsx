@@ -8,33 +8,33 @@ import { Scale, Microscope, Stethoscope, Leaf, Package, HandHeart } from "lucide
 const features = [
   {
     icon: Scale,
-    title: "100% legal",
-    desc: "Operamos bajo Ley 27.350 y registro REPROCANN. Tu acceso está protegido por la ley.",
+    title: "Acceso 100% legal",
+    desc: "Asociación Civil inscripta, operamos bajo Ley 27.350 con registro REPROCANN. Tu membresía está documentada.",
   },
   {
     icon: Microscope,
-    title: "Trazabilidad completa",
-    desc: "Conocés la genética, la concentración de cannabinoides y el proceso de cada lote.",
+    title: "Trazabilidad de lote",
+    desc: "Cada entrega incluye el perfil de cannabinoides del lote. Sabés exactamente qué recibís antes de recibirlo.",
   },
   {
     icon: Stethoscope,
     title: "Acompañamiento médico",
-    desc: "Evaluación gratuita con nuestro equipo médico. Seguimiento personalizado para cada socio.",
+    desc: "Evaluación inicial sin cargo. Un profesional revisa tu caso y orienta tu tratamiento desde el primer contacto.",
   },
   {
     icon: Leaf,
     title: "Genéticas seleccionadas",
-    desc: "Variedades elegidas por su perfil terapéutico. Calidad consistente en cada entrega.",
+    desc: "Cultivamos variedades elegidas por su perfil terapéutico. No lo que hay, sino lo que funciona.",
   },
   {
     icon: Package,
-    title: "Envío nacional",
-    desc: "Recibís tu medicamento en casa a través de Andreani. Discreto y seguro.",
+    title: "Envío a todo el país",
+    desc: "Despachamos por Andreani a cualquier provincia. Discreto, asegurado, con número de seguimiento.",
   },
   {
     icon: HandHeart,
     title: "Precio de comunidad",
-    desc: "Sin especulación. El precio refleja el costo real de producción, no el mercado informal.",
+    desc: "USD 9 a 12 por gramo. Sin intermediarios especulativos. El precio refleja el costo real del cultivo.",
   },
 ];
 
@@ -52,15 +52,17 @@ export function QueEsFlora() {
           className="mb-14"
         >
           <span className="section-tag text-green-accent mb-4 block">
-            Nuestra propuesta
+            Qué es Flora
           </span>
           <h2 className="font-garamond font-bold text-white text-4xl sm:text-5xl leading-tight mb-6 max-w-2xl">
-            Flora es la alternativa que el sistema de salud no te da.
+            Un club de cultivo medicinal.
+            <br />
+            <em className="text-green-accent">Nada más. Nada menos.</em>
           </h2>
           <p className="font-jakarta text-white/70 text-lg leading-relaxed max-w-xl">
-            Somos una ONG de cannabis medicinal. Operamos bajo el marco de la
-            Ley Nacional 27.350, con registro REPROCANN y un compromiso real con
-            la salud de nuestros socios.
+            Somos una Asociación Civil con sede en Neuquén. Cultivamos cannabis
+            medicinal para nuestros socios bajo el marco de la Ley 27.350 y el
+            programa REPROCANN. Sin rodeos, sin burocracia innecesaria.
           </p>
         </motion.div>
 
@@ -70,11 +72,7 @@ export function QueEsFlora() {
               key={f.title}
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.6,
-                delay: 0.1 + i * 0.08,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: "easeOut" }}
               className="bg-white/6 border border-white/10 rounded-2xl p-6 hover:bg-green-accent/10 transition-colors group"
             >
               <div className="w-11 h-11 rounded-xl bg-green-accent/15 flex items-center justify-center mb-4">

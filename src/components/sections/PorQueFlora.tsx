@@ -3,28 +3,28 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { AlertTriangle, TrendingDown, UserX, Scale } from "lucide-react";
+import { ShieldAlert, Shuffle, HelpCircle, FileQuestion } from "lucide-react";
 
 const problems = [
   {
-    icon: AlertTriangle,
-    title: "Sin trazabilidad",
-    desc: "No sabés qué concentración de cannabinoides tiene lo que comprás, ni si tiene pesticidas o metales pesados.",
+    icon: ShieldAlert,
+    title: "No sabés qué consumís",
+    desc: "Sin análisis de laboratorio no hay forma de conocer la concentración real de cannabinoides ni si el cultivo tuvo pesticidas.",
   },
   {
-    icon: TrendingDown,
-    title: "Precios especulativos",
-    desc: "El mercado informal fija precios sin regulación. Pagás más por menos calidad y más incertidumbre.",
+    icon: Shuffle,
+    title: "La genética cambia cada vez",
+    desc: "Hoy conseguís algo que funciona. La próxima vez es otra cosa. La consistencia es lo primero que pierde el mercado informal.",
   },
   {
-    icon: UserX,
-    title: "Sin acompañamiento",
-    desc: "Nadie te orienta sobre dosis, genéticas o interacciones. Navegás a ciegas con tu propia salud.",
+    icon: HelpCircle,
+    title: "Ningún respaldo si algo sale mal",
+    desc: "Sin profesional de salud que te acompañe, ajustás dosis a prueba y error. Eso no es medicina, es azar.",
   },
   {
-    icon: Scale,
-    title: "Riesgo legal innecesario",
-    desc: "Sin REPROCANN estás en zona gris. La Ley 27.350 existe, pero acceder a ella no debería ser un laberinto.",
+    icon: FileQuestion,
+    title: "Zona gris innecesaria",
+    desc: "La ley existe. REPROCANN existe. No tenerlo no es cómodo, es un riesgo que podés eliminar hoy.",
   },
 ];
 
@@ -43,24 +43,25 @@ export function PorQueFlora() {
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <span className="section-tag text-green-dark mb-4 block">
-              El sistema falla
+              El problema real
             </span>
             <h2 className="font-garamond font-bold text-green-dark text-4xl sm:text-5xl leading-tight mb-6">
-              El mercado informal no es una solución.{" "}
-              <span className="italic">Es un parche.</span>
+              El tipo de Instagram
+              <br />
+              <span className="italic">no sabe qué te vendió.</span>
             </h2>
             <p className="font-jakarta text-[#5a6e65] text-lg leading-relaxed mb-5">
-              Miles de argentinos acceden hoy al cannabis medicinal sin ningún
-              control de calidad, sin saber qué consumen, sin respaldo médico y
-              exponiéndose a riesgos legales innecesarios.
+              No es un juicio. Es un hecho. El mercado informal no tiene
+              trazabilidad, no tiene análisis de lote, no tiene protocolo
+              médico. Funciona hasta que no funciona.
             </p>
             <p className="font-jakarta text-[#5a6e65] text-lg leading-relaxed mb-5">
-              El sistema de salud no les da respuesta. La industria farmacéutica
-              los ignora. Y el mercado informal les cobra caro por algo que no
-              puede garantizarles nada.
+              Flora existe para los que ya tomaron la decisión de usar cannabis
+              medicinal y quieren hacerlo con la misma seriedad con la que
+              tratan cualquier otro aspecto de su salud.
             </p>
             <p className="font-garamond font-bold text-green-dark text-xl italic">
-              Eso tiene que cambiar.
+              Certeza. Eso es lo que ofrecemos.
             </p>
           </motion.div>
 
@@ -71,11 +72,7 @@ export function PorQueFlora() {
                 key={p.title}
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.1 + i * 0.1,
-                  ease: "easeOut",
-                }}
+                transition={{ duration: 0.6, delay: 0.1 + i * 0.1, ease: "easeOut" }}
                 className="bg-white rounded-2xl p-5 shadow-sm border border-[#e8e6d9] hover:shadow-md transition-shadow"
               >
                 <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-3">
