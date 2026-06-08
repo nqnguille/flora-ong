@@ -4,26 +4,35 @@ import { motion } from 'framer-motion'
 import { MEMBRESIAS, buildWhatsAppUrl } from '@/lib/constants'
 
 const BENEFICIOS: Record<string, string[]> = {
-  Semilla: [
+  Small: [
     'Acceso a 10g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte por WhatsApp',
   ],
-  Raíz: [
+  Medium: [
     'Acceso a 20g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte prioritario',
     'Selección de variedad',
   ],
-  Cosecha: [
+  Large: [
+    'Acceso a 30g mensuales',
+    'Variedad documentada',
+    'Envío a todo el país',
+    'Soporte prioritario',
+    'Selección de variedad',
+    'Acceso a cepas exclusivas',
+  ],
+  'Extra Large': [
     'Acceso a 40g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte prioritario',
     'Selección de variedad',
     'Acceso a cepas exclusivas',
+    'Reserva de genéticas especiales',
   ],
 }
 
@@ -56,8 +65,8 @@ export default function Membresias() {
           </p>
         </motion.div>
 
-        {/* Cards — 3 en fila */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+        {/* Cards — 4 en fila */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
           {MEMBRESIAS.map((plan, index) => {
             const beneficios = BENEFICIOS[plan.nombre] ?? []
             const isDestacada = plan.destacada
