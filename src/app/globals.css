@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Flora Design Tokens */
+  --color-bg: #F7F6EB;
+  --color-accent: #71CE6A;
+  --color-dark: #2D4239;
+  --color-dark-70: rgba(45, 66, 57, 0.70);
+  --color-dark-60: rgba(45, 66, 57, 0.60);
+  --color-dark-50: rgba(45, 66, 57, 0.50);
+  --color-dark-20: rgba(45, 66, 57, 0.20);
+  --color-dark-10: rgba(45, 66, 57, 0.10);
+
+  /* Fonts */
+  --font-sans: var(--font-hanken);
+  --font-serif: var(--font-garamond);
+}
+
+:root {
+  background-color: #F7F6EB;
+  color: #2D4239;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F7F6EB;
+  color: #2D4239;
+  font-family: var(--font-hanken), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+  outline: 2px solid #71CE6A;
+  outline-offset: 2px;
+}
+
+/* Scrollbar sutil */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F6EB;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(45, 66, 57, 0.20);
+  border-radius: 3px;
+}
