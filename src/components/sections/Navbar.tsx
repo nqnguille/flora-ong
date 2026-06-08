@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { buildWhatsAppUrl, WA_MESSAGES, WHATSAPP_URL } from '@/lib/constants'
 
@@ -20,29 +20,63 @@ function IconWhatsApp({ size = 16 }: { size?: number }) {
   )
 }
 
+// Umbral de scroll: el hero ocupa 100svh.
+// A partir de ~80px consideramos que el usuario scrolleó fuera del video.
+const SCROLL_THRESHOLD = 80
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+  // Patrón extraído de "Header 2" de 21st.dev — useScroll con threshold
+  const onScroll = useCallback(() => {
+    setScrolled(window.scrollY > SCROLL_THRESHOLD)
   }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll, { passive: true })
+    // Verificar estado inicial en primer render
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [onScroll])
+
+  // Bloquear scroll del body cuando el menú mobile está abierto
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
 
   const handleLinkClick = () => setMenuOpen(false)
   const waUrl = buildWhatsAppUrl(WA_MESSAGES.general)
 
   return (
     <>
-      <header
-        className={`
-          fixed top-0 left-0 right-0 z-50 bg-white
-          transition-all duration-200
-          ${scrolled ? 'border-b border-[#2D4239]/10' : 'border-b border-[#2D4239]/8'}
-        `}
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50"
+        animate={{
+          backgroundColor: scrolled ? '#FFFFFF' : 'rgba(0,0,0,0)',
+          borderBottomColor: scrolled ? 'rgba(45,66,57,0.12)' : 'rgba(255,255,255,0)',
+        }}
+        style={{ borderBottomWidth: 1, borderBottomStyle: 'solid' }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 md:px-20 h-16 flex items-center justify-between gap-8">
+        {/* Barra de contenido — se estrecha al hacer scroll */}
+        <motion.div
+          className="mx-auto flex h-16 items-center justify-between gap-8"
+          animate={{
+            maxWidth: scrolled ? '1080px' : '1200px',
+            paddingLeft: scrolled ? '24px' : '80px',
+            paddingRight: scrolled ? '24px' : '80px',
+          }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          style={{ paddingLeft: '80px', paddingRight: '80px' }}
+        >
 
           {/* Logo */}
           <a
@@ -50,91 +84,125 @@ export default function Navbar() {
             aria-label="Flora ONG — inicio"
             className="flex-shrink-0 flex flex-col leading-none"
           >
-            <span className="font-[family-name:var(--font-hanken)] text-[15px] font-bold text-[#2D4239] tracking-[0.06em] uppercase">
+            <motion.span
+              className="font-[family-name:var(--font-hanken)] text-[15px] font-bold tracking-[0.06em] uppercase"
+              animate={{ color: scrolled ? '#2D4239' : '#F7F6EB' }}
+              transition={{ duration: 0.3 }}
+            >
               Flora
-            </span>
-            <span className="font-[family-name:var(--font-hanken)] text-[8px] font-medium text-[#2D4239]/40 tracking-[0.14em] uppercase">
+            </motion.span>
+            <motion.span
+              className="font-[family-name:var(--font-hanken)] text-[8px] font-medium tracking-[0.14em] uppercase"
+              animate={{ color: scrolled ? 'rgba(45,66,57,0.40)' : 'rgba(247,246,235,0.50)' }}
+              transition={{ duration: 0.3 }}
+            >
               Asociación Civil
-            </span>
+            </motion.span>
           </a>
 
           {/* Nav links — desktop */}
           <nav className="hidden md:flex items-center gap-6 flex-1 justify-center" aria-label="Navegación principal">
             {NAV_LINKS.map((link) => (
-              <a
+              <motion.a
                 key={link.href}
                 href={link.href}
-                className="
-                  font-[family-name:var(--font-hanken)] text-[14px] text-[#2D4239]/75
-                  hover:text-[#2D4239] transition-colors duration-150
-                "
+                animate={{
+                  color: scrolled ? 'rgba(45,66,57,0.65)' : 'rgba(247,246,235,0.75)',
+                }}
+                whileHover={{
+                  color: scrolled ? '#2D4239' : '#F7F6EB',
+                }}
+                transition={{ duration: 0.2 }}
+                className="relative font-[family-name:var(--font-hanken)] text-[14px] group"
               >
                 {link.label}
-              </a>
+                {/* Subrayado animado en hover */}
+                <span className="
+                  absolute -bottom-0.5 left-0 w-0 h-px bg-[#71CE6A]
+                  group-hover:w-full transition-all duration-200
+                " />
+              </motion.a>
             ))}
           </nav>
 
           {/* Lado derecho — desktop */}
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-            {/* Hacete socio — outline */}
+            {/* Hacete socio — CTA principal, siempre visible */}
             <a
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Hacerse socio de Flora ONG"
               className="
-                inline-flex items-center justify-center
+                inline-flex items-center justify-center gap-2
                 h-9 px-4 rounded-[4px]
-                bg-transparent text-[#2D4239] border border-[#2D4239]/40
-                font-[family-name:var(--font-hanken)] text-[13px] font-semibold
-                hover:border-[#2D4239] transition-colors duration-150
+                bg-[#71CE6A] text-[#2D4239]
+                font-[family-name:var(--font-hanken)] text-[13px] font-bold
+                transition-colors duration-150 hover:bg-[#5ab854]
               "
             >
+              <IconWhatsApp size={14} />
               Hacete socio
             </a>
 
-            {/* Contacto */}
-            <a
+            {/* Contacto — link secundario */}
+            <motion.a
               href="#legalidad"
-              className="
-                font-[family-name:var(--font-hanken)] text-[14px] text-[#2D4239]/60
-                hover:text-[#2D4239] transition-colors duration-150
-              "
+              animate={{ color: scrolled ? 'rgba(45,66,57,0.50)' : 'rgba(247,246,235,0.55)' }}
+              whileHover={{ color: scrolled ? '#2D4239' : '#F7F6EB' }}
+              transition={{ duration: 0.2 }}
+              className="font-[family-name:var(--font-hanken)] text-[13px]"
             >
               Contacto
-            </a>
-
-            {/* WhatsApp ícono */}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp de Flora ONG"
-              className="
-                flex items-center justify-center
-                w-9 h-9 rounded-[4px]
-                text-[#71CE6A] hover:text-[#2D4239] hover:bg-[#71CE6A]/10
-                transition-colors duration-150
-              "
-            >
-              <IconWhatsApp size={18} />
-            </a>
+            </motion.a>
           </div>
 
-          {/* Hamburger — mobile */}
-          <button
-            className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={menuOpen}
-          >
-            <span className={`block w-5 h-[1.5px] bg-[#2D4239] transition-transform duration-200 ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-[#2D4239] transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-[#2D4239] transition-transform duration-200 ${menuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
-          </button>
+          {/* Hamburger + CTA mobile */}
+          <div className="md:hidden flex items-center gap-3">
+            {/* CTA visible en mobile incluso cuando el menú está cerrado */}
+            {!menuOpen && (
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Asociarse por WhatsApp"
+                className="
+                  inline-flex items-center justify-center
+                  h-8 px-3 rounded-[4px]
+                  bg-[#71CE6A] text-[#2D4239]
+                  font-[family-name:var(--font-hanken)] text-[12px] font-bold
+                "
+              >
+                Asociarse
+              </a>
+            )}
 
-        </div>
-      </header>
+            <button
+              className="flex flex-col gap-[5px] p-2 -mr-2"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={menuOpen}
+            >
+              {/* Las líneas del hamburger adaptan su color al fondo */}
+              {['top', 'mid', 'bot'].map((key, i) => (
+                <motion.span
+                  key={key}
+                  className="block w-5 h-[1.5px] origin-center"
+                  style={{ backgroundColor: scrolled ? '#2D4239' : '#F7F6EB' }}
+                  animate={
+                    i === 0 && menuOpen ? { rotate: 45, y: 6.5 }
+                    : i === 1 && menuOpen ? { opacity: 0 }
+                    : i === 2 && menuOpen ? { rotate: -45, y: -6.5 }
+                    : { rotate: 0, y: 0, opacity: 1 }
+                  }
+                  transition={{ duration: 0.2 }}
+                />
+              ))}
+            </button>
+          </div>
+
+        </motion.div>
+      </motion.header>
 
       {/* Mobile menu */}
       <AnimatePresence>
@@ -143,15 +211,18 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
             className="fixed inset-0 z-40 bg-[#2D4239] flex flex-col pt-20 px-8 md:hidden"
           >
-            <nav className="flex flex-col gap-2 mt-4" aria-label="Menú mobile">
-              {NAV_LINKS.map((link) => (
-                <a
+            <nav className="flex flex-col gap-1 mt-4" aria-label="Menú mobile">
+              {NAV_LINKS.map((link, i) => (
+                <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={handleLinkClick}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2, delay: i * 0.05 }}
                   className="
                     font-[family-name:var(--font-hanken)] text-2xl font-semibold text-[#F7F6EB]
                     py-5 border-b border-[#F7F6EB]/10
@@ -159,10 +230,16 @@ export default function Navbar() {
                   "
                 >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
             </nav>
-            <div className="mt-8 flex flex-col gap-3">
+
+            <motion.div
+              className="mt-8 flex flex-col gap-3"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: 0.28 }}
+            >
               <a
                 href={waUrl}
                 target="_blank"
@@ -173,12 +250,23 @@ export default function Navbar() {
                   w-full h-14 rounded-[4px]
                   bg-[#71CE6A] text-[#2D4239]
                   font-[family-name:var(--font-hanken)] text-base font-bold
+                  hover:bg-[#5ab854] transition-colors duration-150
                 "
               >
                 <IconWhatsApp size={16} />
                 Hacete socio
               </a>
-            </div>
+              <a
+                href="#legalidad"
+                onClick={handleLinkClick}
+                className="
+                  font-[family-name:var(--font-hanken)] text-[14px] text-[#F7F6EB]/40
+                  text-center py-2 hover:text-[#F7F6EB]/70 transition-colors duration-150
+                "
+              >
+                Contacto
+              </a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

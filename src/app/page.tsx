@@ -1,5 +1,5 @@
 import Navbar from '@/components/sections/Navbar'
-import Hero from '@/components/sections/Hero'
+import HeroVideo from '@/components/sections/HeroVideo'
 import ComoFunciona from '@/components/sections/ComoFunciona'
 import PorQueFlora from '@/components/sections/PorQueFlora'
 import Membresias from '@/components/sections/Membresias'
@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <main>
-        <Hero />
+        <HeroVideo />
         <ComoFunciona />
         <PorQueFlora />
         <Membresias />
