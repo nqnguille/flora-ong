@@ -20,35 +20,34 @@ export default function Hero() {
   const waUrl = buildWhatsAppUrl(WA_MESSAGES.general)
 
   return (
-    <section className="relative w-full min-h-[100svh] flex flex-col justify-end">
+    <section className="relative w-full bg-[#F7F6EB] pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden">
 
-      {/* Imagen de fondo — full width / full height */}
-      <div className="absolute inset-0 z-0">
+      {/* Imagen — lado derecho, sin texto encima, decorativa */}
+      <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[48%] z-0">
         <Image
           src={IMAGES.hero}
-          alt="Campo natural con vegetación en Patagonia"
+          alt="Cultivo de cannabis medicinal en Patagonia"
           fill
           className="object-cover object-center"
           priority
-          sizes="100vw"
+          sizes="50vw"
         />
-        {/* Overlay semi-transparente — gradiente de abajo para legibilidad */}
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        {/* Máscara para que la imagen se disuelva hacia la izquierda sin oscurecer el texto */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F7F6EB] via-[#F7F6EB]/10 to-transparent" />
       </div>
 
-      {/* Contenido — sobre el overlay */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-20 pb-16 md:pb-24 pt-28 md:pt-32">
+      {/* Contenido — izquierda, sobre fondo crema */}
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-20">
 
         {/* Badge REPROCANN */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="inline-flex items-center gap-2 mb-8 px-3 py-1.5 bg-black/40 rounded-[3px]"
+          className="inline-flex items-center gap-2 mb-8 px-3 py-1.5 border border-[#2D4239]/15 rounded-[3px]"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#71CE6A] flex-shrink-0" />
-          <span className="font-[family-name:var(--font-hanken)] text-[10px] font-semibold uppercase tracking-[0.12em] text-white/80">
+          <span className="font-[family-name:var(--font-hanken)] text-[10px] font-semibold uppercase tracking-[0.12em] text-[#2D4239]/60">
             Asociación civil registrada en REPROCANN · Neuquén
           </span>
         </motion.div>
@@ -58,19 +57,19 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut', delay: 0.1 }}
-          className="font-[family-name:var(--font-garamond)] text-[64px] md:text-[80px] leading-[1.0] text-white mb-5 max-w-[700px]"
+          className="font-[family-name:var(--font-garamond)] text-[64px] md:text-[80px] leading-[1.0] text-[#2D4239] mb-5 max-w-[600px]"
         >
           Cultivamos<br />conciencia.
         </motion.h1>
 
-        {/* Subheadline */}
+        {/* Subheadline — menciona REPROCANN explícitamente para el momento de reconocimiento de Mariana */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-          className="font-[family-name:var(--font-hanken)] text-[18px] text-white/75 leading-relaxed mb-10 max-w-[520px]"
+          className="font-[family-name:var(--font-hanken)] text-[18px] md:text-[20px] text-[#2D4239]/70 leading-relaxed mb-10 max-w-[520px]"
         >
-          Sos socio de tu propia medicina. Legal, acompañado, sin juicio.
+          El primer club de cultivo para personas con REPROCANN. Cannabis de calidad documentada, dentro del marco legal. Enviamos a todo el país.
         </motion.p>
 
         {/* CTAs */}
@@ -90,7 +89,7 @@ export default function Hero() {
               h-12 px-8 rounded-[4px]
               bg-[#71CE6A] text-[#2D4239]
               font-[family-name:var(--font-hanken)] text-sm font-bold
-              hover:bg-[#60bb59] transition-colors duration-150
+              hover:scale-[1.02] transition-transform duration-150
             "
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -104,9 +103,9 @@ export default function Hero() {
             className="
               inline-flex items-center justify-center
               h-12 px-8 rounded-[4px]
-              bg-transparent text-white border-[1.5px] border-white/60
+              bg-transparent text-[#2D4239] border-[1.5px] border-[#2D4239]/40
               font-[family-name:var(--font-hanken)] text-sm font-bold
-              hover:bg-white/10 hover:border-white transition-colors duration-150
+              hover:bg-[#2D4239]/5 transition-colors duration-150
             "
           >
             Cómo funciona
@@ -128,13 +127,13 @@ export default function Hero() {
             >
               {/* Divisor entre stats (solo desktop) */}
               {index > 0 && (
-                <div className="hidden sm:block w-px h-8 bg-white/20 mx-8 flex-shrink-0" />
+                <div className="hidden sm:block w-px h-8 bg-[#2D4239]/15 mx-8 flex-shrink-0" />
               )}
               <div>
                 <div className="font-[family-name:var(--font-garamond)] text-[28px] md:text-[32px] text-[#71CE6A] leading-none mb-1">
                   {stat.value}
                 </div>
-                <div className="font-[family-name:var(--font-hanken)] text-[11px] uppercase tracking-wider text-white/55">
+                <div className="font-[family-name:var(--font-hanken)] text-[11px] uppercase tracking-wider text-[#2D4239]/50">
                   {stat.label}
                 </div>
               </div>

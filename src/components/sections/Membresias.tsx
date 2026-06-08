@@ -4,29 +4,29 @@ import { motion } from 'framer-motion'
 import { MEMBRESIAS, buildWhatsAppUrl } from '@/lib/constants'
 
 const BENEFICIOS: Record<string, string[]> = {
-  Small: [
+  Semilla: [
     'Acceso a 10g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte por WhatsApp',
   ],
-  Medium: [
+  Raíz: [
     'Acceso a 20g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte prioritario',
     'Selección de variedad',
   ],
-  Large: [
-    'Acceso a 30g mensuales',
+  Cosecha: [
+    'Acceso a 40g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte prioritario',
     'Selección de variedad',
     'Acceso a cepas exclusivas',
   ],
-  'Extra Large': [
-    'Acceso a 40g mensuales',
+  'Cosecha Max': [
+    'Acceso a 60g mensuales',
     'Variedad documentada',
     'Envío a todo el país',
     'Soporte prioritario',

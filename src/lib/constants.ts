@@ -10,10 +10,10 @@ export const DOMINIO = 'flora.ar'
 
 export const WA_MESSAGES = {
   general: `Hola Flora, quiero información para asociarme.`,
-  small: `Hola Flora, me interesa la membresía Small (10g/mes). ¿Cómo me asocio?`,
-  medium: `Hola Flora, me interesa la membresía Medium (20g/mes). ¿Cómo me asocio?`,
-  large: `Hola Flora, me interesa la membresía Large (30g/mes). ¿Cómo me asocio?`,
-  xlarge: `Hola Flora, me interesa la membresía Extra Large (40g/mes). ¿Cómo me asocio?`,
+  small: `Hola Flora, me interesa la membresía Semilla (10g/mes). ¿Cómo me asocio?`,
+  medium: `Hola Flora, me interesa la membresía Raíz (20g/mes). ¿Cómo me asocio?`,
+  large: `Hola Flora, me interesa la membresía Cosecha (40g/mes). ¿Cómo me asocio?`,
+  xlarge: `Hola Flora, me interesa la membresía Cosecha Max (60g/mes). ¿Cómo me asocio?`,
   legalidad: `Hola Flora, tengo dudas sobre el marco legal. ¿Me pueden explicar?`,
 }
 
@@ -73,18 +73,19 @@ export const VALORES = [
 ]
 
 // Membresías — sin precios (D2 resuelta)
+// Nombres: Semilla / Raíz / Cosecha / Cosecha Max (según PLAN.md)
 export const MEMBRESIAS = [
   {
-    nombre: 'Small',
+    nombre: 'Semilla',
     acceso: '10g',
     unidad: 'por mes',
-    descripcion: 'El punto de entrada. Ideal para empezar, conocer el proceso y evaluar si Flora es para vos.',
+    descripcion: 'El punto de entrada. Empezás, conocés el proceso y evaluás si Flora es para vos.',
     badge: null,
     waMessage: WA_MESSAGES.small,
     destacada: false,
   },
   {
-    nombre: 'Medium',
+    nombre: 'Raíz',
     acceso: '20g',
     unidad: 'por mes',
     descripcion: 'La opción más elegida. Acceso regular con variedad garantizada para uso continuo.',
@@ -93,8 +94,8 @@ export const MEMBRESIAS = [
     destacada: true,
   },
   {
-    nombre: 'Large',
-    acceso: '30g',
+    nombre: 'Cosecha',
+    acceso: '40g',
     unidad: 'por mes',
     descripcion: 'Para quienes ya saben lo que necesitan. Mayor volumen, misma calidad documentada.',
     badge: null,
@@ -102,8 +103,8 @@ export const MEMBRESIAS = [
     destacada: false,
   },
   {
-    nombre: 'Extra Large',
-    acceso: '40g',
+    nombre: 'Cosecha Max',
+    acceso: '60g',
     unidad: 'por mes',
     descripcion: 'Máxima flexibilidad para uso intensivo o variedad de cepas en el mismo mes.',
     badge: null,

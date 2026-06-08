@@ -59,25 +59,11 @@ export default function ComoFunciona() {
                 </p>
               </motion.div>
 
-              {/* Flecha decorativa entre pasos — solo desktop, no en el último */}
+              {/* Conector visual entre pasos — línea simple, solo desktop */}
               {index < PASOS.length - 1 && (
-                <div className="hidden md:flex items-center justify-center w-12 flex-shrink-0 mt-5">
-                  <svg width="28" height="16" viewBox="0 0 28 16" fill="none" aria-hidden="true">
-                    <path
-                      d="M0 8h24M18 2l6 6-6 6"
-                      stroke="#2D4239"
-                      strokeOpacity="0.25"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <div className="hidden md:flex items-center justify-center w-12 flex-shrink-0 mt-6">
+                  <div className="w-8 h-px bg-[#2D4239]/20" />
                 </div>
-              )}
-
-              {/* Divisor mobile */}
-              {index < PASOS.length - 1 && (
-                <div className="md:hidden w-full h-px bg-[#2D4239]/10 mb-12" />
               )}
 
             </div>
