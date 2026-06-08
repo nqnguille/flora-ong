@@ -22,7 +22,7 @@ export default function Hero() {
   return (
     <section className="relative w-full bg-[#F7F6EB] pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden">
 
-      {/* Imagen — lado derecho, sin texto encima, decorativa */}
+      {/* Imagen — lado derecho, decorativa */}
       <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[48%] z-0">
         <Image
           src={IMAGES.hero}
@@ -32,21 +32,25 @@ export default function Hero() {
           priority
           sizes="50vw"
         />
-        {/* Máscara para que la imagen se disuelva hacia la izquierda sin oscurecer el texto */}
+        {/* Máscara de disolución hacia la izquierda */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#F7F6EB] via-[#F7F6EB]/10 to-transparent" />
       </div>
 
-      {/* Contenido — izquierda, sobre fondo crema */}
+      {/* Contenido — izquierda */}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-20">
 
-        {/* Badge REPROCANN */}
+        {/* Badge REPROCANN con dot pulsante */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
           className="inline-flex items-center gap-2 mb-8 px-3 py-1.5 border border-[#2D4239]/15 rounded-[3px]"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#71CE6A] flex-shrink-0" />
+          {/* Dot con animación ping */}
+          <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#71CE6A] opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#71CE6A]" />
+          </span>
           <span className="font-[family-name:var(--font-hanken)] text-[10px] font-semibold uppercase tracking-[0.12em] text-[#2D4239]/60">
             Asociación civil registrada en REPROCANN · Neuquén
           </span>
@@ -62,7 +66,16 @@ export default function Hero() {
           Cultivamos<br />conciencia.
         </motion.h1>
 
-        {/* Subheadline — menciona REPROCANN explícitamente para el momento de reconocimiento de Mariana */}
+        {/* Separador decorativo */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.4, ease: 'easeOut', delay: 0.18 }}
+          style={{ transformOrigin: 'left' }}
+          className="w-10 h-px bg-[#71CE6A] mb-5"
+        />
+
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,10 +111,12 @@ export default function Hero() {
             Hacete socio
           </a>
 
-          <a
+          {/* CTA secundario con flecha animada al hover */}
+          <motion.a
             href="#como-funciona"
             className="
-              inline-flex items-center justify-center
+              group
+              inline-flex items-center justify-center gap-2
               h-12 px-8 rounded-[4px]
               bg-transparent text-[#2D4239] border-[1.5px] border-[#2D4239]/40
               font-[family-name:var(--font-hanken)] text-sm font-bold
@@ -109,10 +124,18 @@ export default function Hero() {
             "
           >
             Cómo funciona
-          </a>
+            <motion.span
+              className="inline-block"
+              initial={{ x: 0 }}
+              whileHover={{ x: 3 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+            >
+              →
+            </motion.span>
+          </motion.a>
         </motion.div>
 
-        {/* Stats — fila horizontal con divisores */}
+        {/* Stats */}
         <motion.div
           className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-0"
           variants={statsVariants}
@@ -125,7 +148,6 @@ export default function Hero() {
               variants={statItem}
               className="flex sm:items-center gap-0"
             >
-              {/* Divisor entre stats (solo desktop) */}
               {index > 0 && (
                 <div className="hidden sm:block w-px h-8 bg-[#2D4239]/15 mx-8 flex-shrink-0" />
               )}
@@ -133,7 +155,7 @@ export default function Hero() {
                 <div className="font-[family-name:var(--font-garamond)] text-[28px] md:text-[32px] text-[#71CE6A] leading-none mb-1">
                   {stat.value}
                 </div>
-                <div className="font-[family-name:var(--font-hanken)] text-[11px] uppercase tracking-wider text-[#2D4239]/50">
+                <div className="font-[family-name:var(--font-hanken)] text-[11px] uppercase tracking-wider text-[#2D4239]/70">
                   {stat.label}
                 </div>
               </div>

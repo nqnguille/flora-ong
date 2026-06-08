@@ -44,6 +44,34 @@ function IconWhatsApp() {
   )
 }
 
+/* Check SVG circular refinado */
+function IconCheck({ highlighted }: { highlighted: boolean }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="flex-shrink-0 mt-0.5"
+    >
+      <circle
+        cx="8"
+        cy="8"
+        r="7"
+        fill={highlighted ? 'rgba(45,66,57,0.12)' : 'rgba(113,206,106,0.15)'}
+      />
+      <path
+        d="M5 8.2l2 2 4-4"
+        stroke={highlighted ? '#2D4239' : '#71CE6A'}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export default function Membresias() {
   return (
     <section id="membresias" className="py-24 md:py-32 bg-[#2D4239]">
@@ -77,7 +105,7 @@ export default function Membresias() {
                 className={`
                   rounded-[4px] p-8 flex flex-col
                   ${isDestacada
-                    ? 'bg-[#71CE6A] md:-mt-4 md:pb-12'
+                    ? 'bg-[#71CE6A] md:-mt-4 md:pb-12 ring-2 ring-[#71CE6A]/40 ring-offset-4 ring-offset-[#2D4239]'
                     : 'bg-[#F7F6EB]'}
                 `}
                 initial={{ opacity: 0, y: 24 }}
@@ -86,7 +114,7 @@ export default function Membresias() {
                 transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.08 }}
               >
                 {/* Badge "El más elegido" */}
-                <div className="mb-5 min-h-[20px]">
+                <div className="mb-3 min-h-[20px]">
                   {plan.badge && (
                     <span className={`
                       font-[family-name:var(--font-hanken)] text-[10px] font-bold uppercase tracking-[0.1em]
@@ -97,16 +125,22 @@ export default function Membresias() {
                   )}
                 </div>
 
-                {/* Nombre del plan */}
+                {/* Nombre del plan — label estilo */}
+                <div className={`
+                  font-[family-name:var(--font-hanken)] text-[10px] font-bold uppercase tracking-[0.14em] mb-1
+                  ${isDestacada ? 'text-[#2D4239]/50' : 'text-[#2D4239]/40'}
+                `}>
+                  Plan
+                </div>
                 <h3 className={`
-                  font-[family-name:var(--font-garamond)] text-[32px] leading-none mb-1
+                  font-[family-name:var(--font-garamond)] text-[28px] leading-none mb-1
                   ${isDestacada ? 'text-[#2D4239]' : 'text-[#2D4239]'}
                 `}>
                   {plan.nombre}
                 </h3>
 
-                {/* Gramaje */}
-                <div className="flex items-baseline gap-1.5 mb-6">
+                {/* Gramaje — valor principal */}
+                <div className="flex items-baseline gap-1.5 mb-6 mt-3">
                   <span className={`
                     font-[family-name:var(--font-garamond)] text-[44px] leading-none
                     ${isDestacada ? 'text-[#2D4239]' : 'text-[#2D4239]'}
@@ -124,16 +158,11 @@ export default function Membresias() {
                 {/* Separador */}
                 <div className={`h-px mb-6 ${isDestacada ? 'bg-[#2D4239]/15' : 'bg-[#2D4239]/10'}`} />
 
-                {/* Beneficios con checkmarks */}
+                {/* Beneficios con check circular */}
                 <ul className="flex flex-col gap-3 mb-8 flex-1">
                   {beneficios.map((beneficio) => (
                     <li key={beneficio} className="flex items-start gap-3">
-                      <span className={`
-                        text-[16px] leading-none mt-0.5 flex-shrink-0
-                        ${isDestacada ? 'text-[#2D4239]' : 'text-[#71CE6A]'}
-                      `}>
-                        ✓
-                      </span>
+                      <IconCheck highlighted={isDestacada} />
                       <span className={`
                         font-[family-name:var(--font-hanken)] text-[14px] leading-snug
                         ${isDestacada ? 'text-[#2D4239]/75' : 'text-[#2D4239]/65'}
@@ -151,13 +180,14 @@ export default function Membresias() {
                   rel="noopener noreferrer"
                   aria-label={`Consultar membresía ${plan.nombre} por WhatsApp`}
                   className={`
+                    group
                     inline-flex items-center justify-center gap-2
                     h-12 px-6 rounded-[4px]
                     font-[family-name:var(--font-hanken)] text-sm font-bold
                     transition-colors duration-150
                     ${isDestacada
                       ? 'bg-[#2D4239] text-[#F7F6EB] hover:bg-[#1e2e25]'
-                      : 'bg-transparent text-[#2D4239] border-[1.5px] border-[#2D4239]/40 hover:border-[#2D4239]'}
+                      : 'bg-transparent text-[#2D4239] border-[1.5px] border-[#2D4239]/40 hover:bg-[#2D4239] hover:text-[#F7F6EB] hover:border-[#2D4239]'}
                   `}
                 >
                   <IconWhatsApp />

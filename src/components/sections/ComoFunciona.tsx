@@ -3,6 +3,12 @@
 import { motion } from 'framer-motion'
 import { PASOS, buildWhatsAppUrl } from '@/lib/constants'
 
+const TIEMPO_ESTIMADO: Record<string, string> = {
+  '01': '5 min',
+  '02': '2 min',
+  '03': 'Inmediato',
+}
+
 export default function ComoFunciona() {
   const waReprocann = `https://wa.me/5492996375723?text=${encodeURIComponent('Hola Flora, no tengo el REPROCANN todavía. ¿Me ayudan con el trámite?')}`
 
@@ -26,43 +32,59 @@ export default function ComoFunciona() {
           </p>
         </motion.div>
 
-        {/* Pasos — 3 columnas con flechas entre ellas */}
+        {/* Pasos — 3 columnas con conectores mejorados */}
         <div className="flex flex-col md:flex-row items-start gap-0">
           {PASOS.map((paso, index) => (
             <div key={paso.numero} className="flex-1 flex items-start gap-0">
 
               {/* Paso */}
               <motion.div
-                className="flex-1 pb-12 md:pb-0 md:pr-8"
+                className="flex-1 pb-12 md:pb-0 md:pr-8 group"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px 0px' }}
                 transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.1 }}
               >
-                {/* Número circular */}
-                <div className="
-                  w-12 h-12 rounded-full
-                  border-2 border-[#71CE6A]
-                  flex items-center justify-center
-                  mb-6
-                ">
+                {/* Número circular con hover */}
+                <motion.div
+                  className="
+                    w-12 h-12 rounded-full
+                    border-2 border-[#71CE6A]
+                    flex items-center justify-center
+                    mb-6
+                    transition-colors duration-200
+                    group-hover:bg-[#71CE6A]
+                  "
+                  whileHover={{ backgroundColor: '#71CE6A' }}
+                >
                   <span className="font-[family-name:var(--font-hanken)] text-[14px] font-bold text-[#2D4239]">
                     {paso.numero}
                   </span>
-                </div>
+                </motion.div>
 
                 <h3 className="font-[family-name:var(--font-hanken)] text-[17px] font-bold text-[#2D4239] mb-3">
                   {paso.titulo}
                 </h3>
-                <p className="font-[family-name:var(--font-hanken)] text-[15px] text-[#2D4239]/60 leading-relaxed">
+                <p className="font-[family-name:var(--font-hanken)] text-[15px] text-[#2D4239]/60 leading-relaxed mb-3">
                   {paso.descripcion}
                 </p>
+
+                {/* Tag de tiempo estimado */}
+                <span className="
+                  font-[family-name:var(--font-hanken)] text-[11px] uppercase tracking-[0.1em]
+                  text-[#2D4239]/40
+                ">
+                  {TIEMPO_ESTIMADO[paso.numero]}
+                </span>
               </motion.div>
 
-              {/* Conector visual entre pasos — línea simple, solo desktop */}
+              {/* Conector mejorado — solo desktop */}
               {index < PASOS.length - 1 && (
-                <div className="hidden md:flex items-center justify-center w-12 flex-shrink-0 mt-6">
-                  <div className="w-8 h-px bg-[#2D4239]/20" />
+                <div className="hidden md:flex items-center justify-center w-16 flex-shrink-0 mt-6">
+                  <div className="relative flex-1 flex items-center">
+                    <div className="w-full h-px bg-[#71CE6A]/30" />
+                    <span className="absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#71CE6A]" />
+                  </div>
                 </div>
               )}
 
