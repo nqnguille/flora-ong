@@ -8,6 +8,7 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
+      data-cta="WhatsApp flotante"
       className="fixed bottom-5 right-5 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/40 animate-wa-pulse hover:scale-110 transition-transform"
     >
       <svg
