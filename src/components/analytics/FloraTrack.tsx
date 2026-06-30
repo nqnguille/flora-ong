@@ -36,8 +36,10 @@ function send(event: 'view' | 'click', key?: string) {
       path: location.pathname,
       lang: document.documentElement.lang || 'es',
     })
-    if (navigator.sendBeacon) navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }))
-    else fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true })
+    // text/plain es un content-type CORS-safelisted: el beacon dispara cross-origin sin
+    // preflight (application/json lo dispararía y puede fallar). El central igual parsea el body como JSON.
+    if (navigator.sendBeacon) navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain' }))
+    else fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body, keepalive: true })
   } catch {
     /* nunca romper la página por analytics */
   }
